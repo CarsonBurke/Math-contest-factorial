@@ -1,54 +1,60 @@
-function partB3() {
+partB3(5)
 
-    let n = 7
-    let x = n - 2
+function partB3(input) {
 
-    console.log('SEARCHING FOR TUPLE COUNT FOR f(' + n + ')')
-    console.log('---------------------------')
-
-    let tuple
-    let totalTupleCount = 0
-    let tupleCounts = []
+    console.log('Input:', input)
+    console.log('----')
 
     let min = 1
-    let max = x
+    let tupleCount = 0
+    let usedAB = new Set()
+    let usedCD = new Set()
 
-    for (let i = 0; i < x; i++) {
+    // The difference is never more than half the input
 
-        let tupleListCount = i + 2
+    for (let i1 = min; i1 <= input; i1 += 1) {
 
-        
+        console.log("i1", i1)
+        console.log('===')
 
-/* 
-        let diff = (i + 1) * -1
-         */
-        /* console.log(diff) */
+        for (let i2 = min; i2 <= input; i2 += 1) {
 
+            let foundTuple
 
-/* 
-        for (let z = min; z < max; z++) {
+            if (i2 <= i1) continue
+    
+            let diff = i1 - i2
+            console.log('diff', diff)
+            if (diff > 0) continue
+    
+            console.log(i1, i2, diff)
+    
+            for (let i3 = min; i3 <= input; i3 += 1) {
 
-            if (z === diff || z === diff * -1) {
+                if (foundTuple) break
+    
+                if (i3 === i1 || i3 === i2) continue
+                console.log("i3", i3)
+                let i4 = i3 + Math.abs(diff)
+    
+                if (i4 > input) continue
+                if (i4 === i1) continue
+    
+                tupleCount += 1
 
-                continue
+                foundTuple = true
+    
+                console.log('(', i1, '-', i2, '=', i3, '-', i4, ')', diff)
             }
-
-            for (let p = min; p < max; p++) {
-
-                tupleListCount += 1
-            }
-
-            console.log(z, z + diff)
         }
- */
-        tupleCounts.push(tupleListCount)
-
-        totalTupleCount += tupleListCount
     }
 
-    let result = totalTupleCount * 4
+    console.log(usedAB, usedCD)
 
-    console.log(n, tupleCounts, result)
+    // *2 to account for positive / negative tuple identicles
+    // *2 again to account for alternative versions (a, b, c, d) -> (c, d, a, b)
+
+    tupleCount *= 2
+
+    console.log(input, tupleCount)
 }
-
-partB3()
