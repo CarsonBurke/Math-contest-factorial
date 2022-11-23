@@ -7,8 +7,6 @@ function partB3(input) {
 
     let min = 1
     let tupleCount = 0
-    let usedAB = new Set()
-    let usedCD = new Set()
 
     // The difference is never more than half the input
 
@@ -20,12 +18,10 @@ function partB3(input) {
         for (let i2 = min; i2 <= input; i2 += 1) {
 
             let foundTuple
-
-            if (i2 <= i1) continue
+            if (i1 === i2) continue
     
             let diff = i1 - i2
             console.log('diff', diff)
-            if (diff > 0) continue
     
             console.log(i1, i2, diff)
     
@@ -38,7 +34,7 @@ function partB3(input) {
                 let i4 = i3 + Math.abs(diff)
     
                 if (i4 > input) continue
-                if (i4 === i1) continue
+                if (i4 === i1 || i4 === i2) continue
     
                 tupleCount += 1
 
@@ -49,12 +45,10 @@ function partB3(input) {
         }
     }
 
-    console.log(usedAB, usedCD)
-
     // *2 to account for positive / negative tuple identicles
     // *2 again to account for alternative versions (a, b, c, d) -> (c, d, a, b)
 
-    tupleCount *= 2
+    /* tupleCount *= 2 */
 
     console.log(input, tupleCount)
 }
